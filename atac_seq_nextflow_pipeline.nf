@@ -174,10 +174,10 @@ workflow {
     mark_duplicates_picard(fastq_files, samples_file, picard_filepath)
  
     // Running CollectInsertSize (Picard)
-    println " "
-    println "Collect insert size metrics output directory: ${config_directory}/collect_insert_metrics_output"
-    println " "
-    collect_insert_sizes_picard(fastq_files, samples_file, picard_filepath)
+    // println " "
+    // println "Collect insert size metrics output directory: ${config_directory}/collect_insert_metrics_output"
+    // println " "
+    // collect_insert_sizes_picard(fastq_files, samples_file, picard_filepath)
 
     // Running MACS2 Peak Calling
     println " "
