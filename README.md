@@ -1,7 +1,7 @@
 # ATACSeq Data Processing Pipeline using NextFlow
 This is an automated workflow pipeline for analyzing and processing ATAC-seq data, implemented primarily in bash, and wrapped in a NextFlow workflow to generate peak-calling and TSSe Score calculation. Here are the steps for data processing:
 1. [In-progress] Running Trim galore to cut the adapters
-2. [In-progress] Running alignment using bowtie2
+2. [In-progress] Running alignment to the reference genome using Bowtie2
 3. [In-progress] Running filtering using Samtools
 4. [In-progress] Running mark duplicates using picard
 5. [In-progress] Running peak calling using MACS2 and TSSe score calculation
