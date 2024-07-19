@@ -26,6 +26,9 @@ a) pipeline.config
 b) atac_seq_samples.txt
 ```
 
+Note: The Picard Java archive file `picard.jar` is needed to run `MarkDuplicates`. It can be downloaded from the [Broad Institute's](https://github.com/broadinstitute/picard/releases/tag/3.2.0) website.
+
+
 
 #### Running the Tool
 Here is an example of how to run the pipeline:
