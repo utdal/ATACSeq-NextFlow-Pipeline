@@ -1,5 +1,5 @@
 # ATACSeq Data Processing Pipeline using NextFlow
-This is an automated workflow pipeline for analyzing and processing ATAC-seq data, implemented primarily in bash, and wrapped in a NextFlow workflow to generate peak-calling and TSSe Score calculation. Here are the steps for data processing:
+This is an automated workflow pipeline for analyzing and processing ATAC-seq data, implemented primarily in bash, and wrapped in a NextFlow workflow to characterize the chromatin landscape in bulk ATAC-seq samples. Here are the steps for data processing:
 1. [Completed] Running Trim galore to cut the adapters
 2. [Completed] Running alignment to the reference genome using Bowtie2
 3. [Completed] Running filtering using Samtools
@@ -10,7 +10,7 @@ This is an automated workflow pipeline for analyzing and processing ATAC-seq dat
 
 ![ATACSeq NextFlow Pipeline](misc/ATACSeqpipeline.png)
 
-This tool is predominantly used for the analysis of ATAC-seq data to obtain TSSe Scores and various plots.
+This tool is used to process bulk ATAC-seq data by mapping paired-end reads to a reference genome and identifying areas of open chromatin after peak calling. This tool generates files that can be visualized on a genome browser. 
 
 Running the tool is pretty straight forward, however a good understanding of `bash` is recommended. Please familiarize yourself with data types, basic functions, data structures in each language.
 
