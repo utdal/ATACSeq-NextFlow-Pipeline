@@ -22,8 +22,8 @@ git clone https://github.com/utdal/ATACSeq-NextFlow-Pipeline
 
 To execute the tool, essential modifications need to be made to the file(s):
 ```
-a) pipeline.config
-b) atac_seq_samples.txt
+a) pipeline.config       [Edit the filepaths]
+b) atac_seq_samples.txt  [Edit sample names, without the suffixes]
 ```
 
 Note: The Picard Java archive file `picard.jar` is needed to run `MarkDuplicates`. It can be downloaded from the [Broad Institute's](https://github.com/broadinstitute/picard/releases/tag/3.2.0) website.
@@ -42,3 +42,8 @@ Here is an example of how to run the pipeline:
    ```
 
 The results generated should be in the `params.fastq_files = '/path/to/config/fastq_files'` directory, which was edited initially.
+
+
+----
+### License
+License information can be found in the LICENSE file.
