@@ -37,6 +37,7 @@ process trim_galore_adapter_trimming {
     debug true
     
     input:
+    val config_directory
     val fastq_files
     val samples_file
     val trim_galore_cores
@@ -53,6 +54,7 @@ process mapping_bowtie2 {
     debug true
     
     input:
+    val config_directory
     val fastq_files
     val samples_file
 
@@ -68,6 +70,7 @@ process mark_duplicates_picard {
     debug true
     
     input:
+    val config_directory
     val fastq_files
     val samples_file
     val picard_filepath
@@ -84,6 +87,7 @@ process collect_insert_sizes_picard {
     debug true
     
     input:
+    val config_directory
     val fastq_files
     val samples_file
     val picard_filepath
@@ -100,6 +104,7 @@ process macs2_peak_calling {
     debug true
     
     input:
+    val config_directory
     val fastq_files
     val samples_file
 
@@ -115,6 +120,7 @@ process generate_bigwig_files {
     debug true
     
     input:
+    val config_directory
     val fastq_files
     val hg38gn_filepath
 
@@ -154,7 +160,7 @@ workflow {
     println "Trim Galore output directory: ${config_directory}/trim_galore_output"
     println "No. of cores to be used to trim the adapters: ${trim_galore_cores}"
     println " "
-    trim_galore_adapter_trimming(fastq_files, samples_file, trim_galore_cores)
+    trim_galore_adapter_trimming(config_directory, fastq_files, samples_file, trim_galore_cores)
     
     // - - - -- - - - - - - ---
     // Note: rename the files -
@@ -164,33 +170,33 @@ workflow {
     println " "
     println "Bowtie2 mapping output directory: ${config_directory}/bowtie_output"
     println " "
-    mapping_bowtie2(fastq_files, samples_file)
+    mapping_bowtie2(config_directory, fastq_files, samples_file)
 
     // Running MarkDuplicates (Picard)
     picard_filepath = params.picard_filepath
     println " "
     println "Mark Duplicates using picard output directory: ${config_directory}/mark_duplicate_output"
     println " "
-    mark_duplicates_picard(fastq_files, samples_file, picard_filepath)
+    mark_duplicates_picard(config_directory, fastq_files, samples_file, picard_filepath)
  
     // Running CollectInsertSize (Picard)
     // println " "
     // println "Collect insert size metrics output directory: ${config_directory}/collect_insert_metrics_output"
     // println " "
-    // collect_insert_sizes_picard(fastq_files, samples_file, picard_filepath)
+    // collect_insert_sizes_picard(config_directory, fastq_files, samples_file, picard_filepath)
 
     // Running MACS2 Peak Calling
     println " "
     println "MACS2 peak-calling output directory: ${config_directory}/macs2_peak_calling_output"
     println " "
-    macs2_peak_calling(fastq_files, samples_file)
+    macs2_peak_calling(config_directory, fastq_files, samples_file)
 
     // Converting .bed to .bedGraph to .bigWig files
     // hg38gn_filepath = params.hg38gn_filepath
     // println " "
     // println "Generating .bigWig files peak-calling output directory: ${config_directory}/macs2_peak_calling_bedgraph_output"
     // println " "
-    // generate_bigwig_files(fastq_files, hg38gn_filepath)
+    // generate_bigwig_files(config_directory, fastq_files, hg38gn_filepath)
 
 
 }
