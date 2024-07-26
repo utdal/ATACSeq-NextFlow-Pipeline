@@ -27,8 +27,8 @@ process generate_fastqc_multiqc_reports {
 
     script:
     """
-    echo '${config_directory}/generate_fastqc_reports.sh $fastq_files $fastqc_cores'
-    bash ${config_directory}/generate_fastqc_reports.sh $fastq_files $fastqc_cores
+    echo '${config_directory}/generate_fastqc_reports.sh $fastq_files $fastqc_cores $config_directory'
+    bash ${config_directory}/generate_fastqc_reports.sh $fastq_files $fastqc_cores $config_directory
     """
 }
 
@@ -44,8 +44,8 @@ process trim_galore_adapter_trimming {
 
     script:
     """
-    echo '${config_directory}/trim_galore_script.sh $fastq_files $samples_file $trim_galore_cores'
-    bash ${config_directory}/trim_galore_script.sh $fastq_files $samples_file $trim_galore_cores
+    echo '${config_directory}/trim_galore_script.sh $fastq_files $samples_file $trim_galore_cores $config_directory'
+    bash ${config_directory}/trim_galore_script.sh $fastq_files $samples_file $trim_galore_cores $config_directory
     """
 }
 
@@ -60,8 +60,8 @@ process mapping_bowtie2 {
 
     script:
     """
-    echo '${config_directory}/bowtie2_fq_2bam.sh $fastq_files $samples_file'
-    bash ${config_directory}/bowtie2_fq_2bam.sh $fastq_files $samples_file
+    echo '${config_directory}/bowtie2_fq_2bam.sh $fastq_files $samples_file $config_directory'
+    bash ${config_directory}/bowtie2_fq_2bam.sh $fastq_files $samples_file $config_directory
     """
 }
 
@@ -77,8 +77,8 @@ process mark_duplicates_picard {
 
     script:
     """
-    echo '${config_directory}/mark_duplicates_bam.sh $fastq_files $samples_file $picard_filepath'
-    bash ${config_directory}/mark_duplicates_bam.sh $fastq_files $samples_file $picard_filepath
+    echo '${config_directory}/mark_duplicates_bam.sh $fastq_files $samples_file $picard_filepath $config_directory'
+    bash ${config_directory}/mark_duplicates_bam.sh $fastq_files $samples_file $picard_filepath $config_directory
     """
 }
 
@@ -94,8 +94,8 @@ process collect_insert_sizes_picard {
 
     script:
     """
-    echo '${config_directory}/collect_insert_size_metrics.sh $fastq_files $samples_file $picard_filepath'
-    bash ${config_directory}/collect_insert_size_metrics.sh $fastq_files $samples_file $picard_filepath
+    echo '${config_directory}/collect_insert_size_metrics.sh $fastq_files $samples_file $picard_filepath $config_directory'
+    bash ${config_directory}/collect_insert_size_metrics.sh $fastq_files $samples_file $picard_filepath $config_directory
     """
 }
 
@@ -110,8 +110,8 @@ process macs2_peak_calling {
 
     script:
     """
-    echo '${config_directory}/macs2_peak_calling.sh $fastq_files $samples_file'
-    bash ${config_directory}/macs2_peak_calling.sh $fastq_files $samples_file
+    echo '${config_directory}/macs2_peak_calling.sh $fastq_files $samples_file $config_directory'
+    bash ${config_directory}/macs2_peak_calling.sh $fastq_files $samples_file $config_directory
     """
 }
 
@@ -126,8 +126,8 @@ process generate_bigwig_files {
 
     script:
     """
-    echo '${config_directory}/bedGraph_to_bigWig.sh $fastq_files $hg38gn_filepath'
-    bash ${config_directory}/bedGraph_to_bigWig.sh $fastq_files $hg38gn_filepath
+    echo '${config_directory}/bedGraph_to_bigWig.sh $fastq_files $hg38gn_filepath $config_directory'
+    bash ${config_directory}/bedGraph_to_bigWig.sh $fastq_files $hg38gn_filepath $config_directory
     """
 }
 
@@ -180,10 +180,10 @@ workflow {
     mark_duplicates_picard(config_directory, fastq_files, samples_file, picard_filepath)
  
     // Running CollectInsertSize (Picard)
-    // println " "
-    // println "Collect insert size metrics output directory: ${config_directory}/collect_insert_metrics_output"
-    // println " "
-    // collect_insert_sizes_picard(config_directory, fastq_files, samples_file, picard_filepath)
+    println " "
+    println "Collect insert size metrics output directory: ${config_directory}/collect_insert_metrics_output"
+    println " "
+    collect_insert_sizes_picard(config_directory, fastq_files, samples_file, picard_filepath)
 
     // Running MACS2 Peak Calling
     println " "
@@ -192,11 +192,10 @@ workflow {
     macs2_peak_calling(config_directory, fastq_files, samples_file)
 
     // Converting .bed to .bedGraph to .bigWig files
-    // hg38gn_filepath = params.hg38gn_filepath
-    // println " "
-    // println "Generating .bigWig files peak-calling output directory: ${config_directory}/macs2_peak_calling_bedgraph_output"
-    // println " "
-    // generate_bigwig_files(config_directory, fastq_files, hg38gn_filepath)
-
+    hg38gn_filepath = params.hg38gn_filepath
+    println " "
+    println "Generating .bigWig files peak-calling output directory: ${config_directory}/macs2_peak_calling_bedgraph_output"
+    println " "
+    generate_bigwig_files(config_directory, fastq_files, hg38gn_filepath)
 
 }
