@@ -1,13 +1,18 @@
 #!/bin/bash
 
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <BAM_INPUT_PATH> <JOBLIST_FQ_FPATH_FNAME> <OUTPUT_FILE_PATH>"
+    exit 1
+fi
+
 # INPUT PATHS
 FASTQ_INPUT_PATH=$1
 HG38_CHROM_SIZES_PATH=$2
 
 # OUTPUT PATHS
-MACS2_OUTPUT_PATH="$FASTQ_INPUT_PATH/macs2_peak_calling_output"
-MACS2_BEDGRAPH_OUTPUT_PATH="$FASTQ_INPUT_PATH/macs2_peak_calling_bedgraph_output"
-BIGWIG_OUTPUT_PATH="$FASTQ_INPUT_PATH/bigwig_output"
+MACS2_OUTPUT_PATH="$3/macs2_peak_calling_output"
+MACS2_BEDGRAPH_OUTPUT_PATH="$3/macs2_peak_calling_bedgraph_output"
+BIGWIG_OUTPUT_PATH="$3/bigwig_output"
 
 mkdir -p $MACS2_BEDGRAPH_OUTPUT_PATH $BIGWIG_OUTPUT_PATH
 
@@ -20,6 +25,7 @@ mkdir -p $BIGWIG_LOG_PATH
 for LIBR_NAME in "$MACS2_BEDGRAPH_OUTPUT_PATH"/*.bed
 do
     BASE_FILE_NAME=$(basename "$LIBR_NAME" .bed)
+    echo $BASE_FILE_NAME
     echo " "
     echo `date '+%F %H:%M:%S'` Converting $BASE_FILE_NAME.bed to $BASE_FILE_NAME.bigWig Calling ...
     bedtools genomecov -bg -i $LIBR_NAME -g $HG38_CHROM_SIZES_PATH > $MACS2_BEDGRAPH_OUTPUT_PATH/$BASE_FILE_NAME.bedgraph
