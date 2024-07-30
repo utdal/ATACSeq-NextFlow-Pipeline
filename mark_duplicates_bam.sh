@@ -1,15 +1,27 @@
 #!/bin/bash
 
+# checking if 4 arguments are provided
+if [ "$#" -ne 4 ]; then
+    echo "Usage: $0 <BAM_INPUT_PATH> <JOBLIST_FQ_FPATH_FNAME> <PICARD_JAR_FPATH> <OUTPUT_BASE_PATH>"
+    exit 1
+fi
+
 # INPUT PATHS
 BAM_INPUT_PATH=$1
 JOBLIST_FQ_FPATH_FNAME=$2
 PICARD_JAR_FPATH=$3
 
 # OUTPUT PATHS
-BOWTIE_INPUT_PATH="$BAM_INPUT_PATH/bowtie_output"
-MARK_DUPLICATES_OUTPUT_PATH="$BAM_INPUT_PATH/mark_duplicate_output"
+BOWTIE_INPUT_PATH="$4/bowtie_output"
+MARK_DUPLICATES_OUTPUT_PATH="$4/mark_duplicate_output"
 
-mkdir -p $BOWTIE_INPUT_PATH $MARK_DUPLICATES_OUTPUT_PATH
+# checking if bowtie2-mapping output directory exist
+if [ ! -d "$BOWTIE_INPUT_PATH" ]; then
+    echo "Error: Directory $BOWTIE_INPUT_PATH does not exist."
+    exit 1
+fi
+
+mkdir -p $MARK_DUPLICATES_OUTPUT_PATH
 
 # LOG_PATHS
 MARK_DUPLICATES_LOG_PATH=${MARK_DUPLICATES_OUTPUT_PATH}/log
