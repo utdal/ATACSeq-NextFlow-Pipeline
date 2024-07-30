@@ -1,12 +1,17 @@
 #!/bin/bash
 
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <BAM_INPUT_PATH> <JOBLIST_FQ_FPATH_FNAME> <OUTPUT_FILE_PATH>"
+    exit 1
+fi
+
 # INPUT PATHS
 BAM_INPUT_PATH=$1
 JOBLIST_FQ_FPATH_FNAME=$2
 
 # OUTPUT PATHS
-MARK_DUPLICATES_OUTPUT_PATH="$BAM_INPUT_PATH/mark_duplicate_output"
-MACS2_OUTPUT_PATH="$BAM_INPUT_PATH/macs2_peak_calling_output"
+MARK_DUPLICATES_OUTPUT_PATH="$3/mark_duplicate_output"
+MACS2_OUTPUT_PATH="$3/macs2_peak_calling_output"
 
 mkdir -p $MACS2_OUTPUT_PATH
 
