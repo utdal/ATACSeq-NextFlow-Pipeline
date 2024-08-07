@@ -37,11 +37,11 @@ b) atac_seq_samples.txt
 Here is an example of how to run the pipeline:
 1. Command to run the pipeline:
    ```
-   nextflow run atacseq_nextflow_pipeline.nf -c pipeline.config
+   nextflow run atac_seq_nextflow_pipeline.nf -c pipeline.config
    ```
 2. Command to re-run from fail-point:
    ```
-   nextflow run atacseq_nextflow_pipeline.nf -c pipeline.config -resume
+   nextflow run atac_seq_nextflow_pipeline.nf -c pipeline.config -resume
    ```
 
 The results generated are stored in the `params.config_directory = '/path/to/config'` directory, as mentioned in the `pipeline.config` file.
