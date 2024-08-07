@@ -30,6 +30,8 @@ b) atac_seq_samples.txt
 > 1. To run `MarkDuplicates`, you will need the Picard Java archive file `picard.jar`, which can be downloaded from the [Broad Institute's](https://github.com/broadinstitute/picard/releases/tag/3.2.0) website. Make sure to update the file path to this archive in the `pipeline.config` file.
 > 2. Before executing the pipeline, you must build the **Bowtie2 index** from the reference genome and place it in the config directory: `params.config_directory = '/path/to/config'`.
 > Download the reference genome: `hg38canon.fa` and, to build the index, execute: `bowtie2-build hg38canon.fa hg38`
+> 
+> Here **hg38** is Bowtie2 human genome index directory, that needs to be updated in the `pipeline.config` file.
 
 #### Running the Tool:
 Here is an example of how to run the pipeline:
