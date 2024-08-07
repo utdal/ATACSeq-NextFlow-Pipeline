@@ -1,5 +1,5 @@
 # ATACSeq Data Processing Pipeline using NextFlow
-This is an automated workflow pipeline for analyzing and processing ATAC-seq data, implemented primarily in bash, and wrapped in a NextFlow workflow to characterize the chromatin landscape in bulk ATAC-seq samples. Here are the steps for data processing:
+This is an automated workflow pipeline for analyzing and processing ATAC-seq data, implemented primarily in bash, and wrapped in a NextFlow workflow to generate peak-calling and TSSe Score calculation. Here are the steps for data processing:
 1. [Completed] Running Trim galore to cut the adapters
 2. [Completed] Running alignment to the reference genome using Bowtie2
 3. [Completed] Running filtering using Samtools
@@ -10,7 +10,7 @@ This is an automated workflow pipeline for analyzing and processing ATAC-seq dat
 
 ![ATACSeq NextFlow Pipeline](misc/ATACSeqpipeline.png)
 
-This tool is used to process bulk ATAC-seq data by mapping paired-end reads to a reference genome and identifying areas of open chromatin after peak calling. This tool generates files that can be visualized on a genome browser. 
+This tool is predominantly used for the analysis of **ATAC-seq** data to obtain *TSSe Scores* and various *plots*.
 
 Running the tool is pretty straight forward, however a good understanding of `bash` is recommended. Please familiarize yourself with data types, basic functions, data structures in each language.
 
@@ -22,28 +22,24 @@ git clone https://github.com/utdal/ATACSeq-NextFlow-Pipeline
 
 To execute the tool, essential modifications need to be made to the file(s):
 ```
-a) pipeline.config       [Edit the filepaths]
-b) atac_seq_samples.txt  [Edit sample names, without the suffixes]
+a) pipeline.config
+b) atac_seq_samples.txt
 ```
 
-Note: The Picard Java archive file `picard.jar` is needed to run `MarkDuplicates`. It can be downloaded from the [Broad Institute's](https://github.com/broadinstitute/picard/releases/tag/3.2.0) website.
+> Note:
+> 1. To run `MarkDuplicates`, you will need the Picard Java archive file `picard.jar`, which can be downloaded from the [Broad Institute's](https://github.com/broadinstitute/picard/releases/tag/3.2.0) website. Make sure to update the file path to this archive in the `pipeline.config` file.
+> 2. Before executing the pipeline, you must build the **Bowtie2 index** from the reference genome and place it in the config directory: `params.config_directory = '/path/to/config'`.
+> Download the reference genome: `hg38canon.fa` and, to build the index, execute: `bowtie2-build hg38canon.fa hg38`
 
-
-
-#### Running the Tool
+#### Running the Tool:
 Here is an example of how to run the pipeline:
 1. Command to run the pipeline:
    ```
-   nextflow run atac_seq_nextflow_pipeline.nf -c pipeline.config
+   nextflow run atacseq_nextflow_pipeline.nf -c pipeline.config
    ```
 2. Command to re-run from fail-point:
    ```
-   nextflow run atac_seq_nextflow_pipeline.nf -c pipeline.config -resume
+   nextflow run atacseq_nextflow_pipeline.nf -c pipeline.config -resume
    ```
 
-The results generated should be in the `params.fastq_files = '/path/to/config/fastq_files'` directory, which was edited initially.
-
-
-----
-### License
-License information can be found in the LICENSE file.
+The results generated are stored in the `params.config_directory = '/path/to/config'` directory, as mentioned in the `pipeline.config` file.
