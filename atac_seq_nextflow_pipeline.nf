@@ -63,6 +63,7 @@ process mapping_bowtie2 {
     input:
     val config_directory
     val samples_file
+    val genome_index_directory
     val trimmed_files
 
     output:
@@ -70,8 +71,8 @@ process mapping_bowtie2 {
 
     script:
     """
-    echo '${config_directory}/bowtie2_fq_2bam.sh $trimmed_files $samples_file $config_directory'
-    bash ${config_directory}/bowtie2_fq_2bam.sh $trimmed_files $samples_file $config_directory
+    echo '${config_directory}/bowtie2_fq_2bam.sh $trimmed_files $samples_file $config_directory $genome_index_directory'
+    bash ${config_directory}/bowtie2_fq_2bam.sh $trimmed_files $samples_file $config_directory $genome_index_directory
     """
 }
 
@@ -183,10 +184,11 @@ workflow {
     trimmed_files = trim_galore_adapter_trimming(config_directory, fastq_files, samples_file, trim_galore_cores, fastqc_output.fastqc_output)
     
     // Running Bowtie2 Mapping
+    genome_index_directory = params.genome_index_directory
     println " "
     println "Bowtie2 mapping output directory: ${config_directory}/bowtie_output"
     println " "
-    mapped_files = mapping_bowtie2(config_directory, samples_file, trimmed_files.trimmed_files)
+    mapped_files = mapping_bowtie2(config_directory, samples_file, genome_index_directory, trimmed_files.trimmed_files)
 
     // Running MarkDuplicates (Picard)
     picard_filepath = params.picard_filepath
