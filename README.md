@@ -27,7 +27,7 @@ b) atac_seq_samples.txt
 ```
 
 > Note:
-> 1. Install FastQC, MultiQC, cutadapt, [trim-galore](https://github.com/FelixKrueger/TrimGalore), and macs2 packages.
+> 1. Install [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/INSTALL.txt), [MultiQC](https://multiqc.info/docs/getting_started/installation/), [cutadapt](https://cutadapt.readthedocs.io/en/v3.7/installation.html#installation-with-conda), [trim-galore](https://github.com/FelixKrueger/TrimGalore), and macs2 packages.
 > 2. To run `MarkDuplicates`, you will need the Picard Java archive file `picard.jar`, which can be downloaded from the [Broad Institute's](https://github.com/broadinstitute/picard/releases/tag/3.2.0) website. Make sure to update the file path to this archive in the `pipeline.config` file.
 > 3. Before executing the pipeline, you must build the **Bowtie2 index** from the reference genome and place it in the config directory: `params.config_directory = '/path/to/config'`.
 > Download the reference genome: `hg38canon.fa` and, to build the index, execute: `bowtie2-build hg38canon.fa hg38`
