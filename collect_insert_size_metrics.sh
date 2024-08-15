@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [ "$#" -ne 4 ]; then
     echo "Usage: $0 <BAM_INPUT_PATH> <JOBLIST_FQ_FPATH_FNAME> <PICARD_JAR_FPATH> <OUTPUT_BASE_PATH>"
     exit 1
