@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 
 NUM_THREADS=$2 
 FASTQ_INPUT_PATH=$1
