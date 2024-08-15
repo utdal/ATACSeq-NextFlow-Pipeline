@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [ "$#" -ne 3 ]; then
     echo "Usage: $0 <BAM_INPUT_PATH> <JOBLIST_FQ_FPATH_FNAME> <OUTPUT_FILE_PATH>"
     exit 1
