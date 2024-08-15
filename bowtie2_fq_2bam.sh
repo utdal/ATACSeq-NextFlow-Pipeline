@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # INPUT PATHS
 FQ_INPUT_PATH=$1
 JOBLIST_FQ_FPATH_FNAME=$2
