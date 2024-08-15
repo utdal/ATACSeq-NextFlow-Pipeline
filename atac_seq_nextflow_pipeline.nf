@@ -19,6 +19,7 @@ println "5. Post Alignment processing - Peak calling using macs2."
 
 process generate_fastqc_multiqc_reports {
     debug true
+    errorStrategy 'terminate'
     
     input:
     val config_directory
@@ -38,6 +39,7 @@ process generate_fastqc_multiqc_reports {
 
 process trim_galore_adapter_trimming {
     debug true
+    errorStrategy 'terminate'
     
     input:
     val config_directory
@@ -59,6 +61,7 @@ process trim_galore_adapter_trimming {
 
 process mapping_bowtie2 {
     debug true
+    errorStrategy 'terminate'
     
     input:
     val config_directory
@@ -79,6 +82,7 @@ process mapping_bowtie2 {
 
 process mark_duplicates_picard {
     debug true
+    errorStrategy 'terminate'
     
     input:
     val config_directory
@@ -99,6 +103,7 @@ process mark_duplicates_picard {
 
 process collect_insert_sizes_picard {
     debug true
+    errorStrategy 'terminate'
     
     input:
     val config_directory
@@ -119,6 +124,7 @@ process collect_insert_sizes_picard {
 
 process macs2_peak_calling {
     debug true
+    errorStrategy 'terminate'
     
     input:
     val config_directory
@@ -138,6 +144,7 @@ process macs2_peak_calling {
 
 process generate_bigwig_files {
     debug true
+    errorStrategy 'terminate'
     
     input:
     val config_directory
