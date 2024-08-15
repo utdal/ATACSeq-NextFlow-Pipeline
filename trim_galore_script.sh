@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 
 # INPUT PATHS
 FASTQ_INPUT_PATH=$1
