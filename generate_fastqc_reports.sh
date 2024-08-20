@@ -4,7 +4,7 @@ set -e
 
 NUM_THREADS=$2 
 FASTQ_INPUT_PATH=$1
-output_dir=$FASTQ_INPUT_PATH/"fastqc_and_multiqc_reports"
+output_dir=$3/"fastqc_and_multiqc_reports"
 
 if [ ! -d "$output_dir" ]; then
     mkdir -p "$output_dir"
