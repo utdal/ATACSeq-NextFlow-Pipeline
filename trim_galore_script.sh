@@ -8,13 +8,9 @@ JOBLIST_FPATH_FNAME=$2
 
 # OUTPUT PATHS
 TRIM_GALORE_OUTPUT_FPATH="$4/trim_galore_output"
-
 mkdir -p $TRIM_GALORE_OUTPUT_FPATH
 
 NUM_THREADS=$3
-
-# INDEX NAMES
-IDX_PREFIX=hg38.p13
 
 # FILE NAMES
 READ1_SUFFIX="_R1_001"
@@ -31,8 +27,7 @@ do
     echo `date '+%F %H:%M:%S'` ${LIBR_NAME} Running trim-galore ...
 
     #( trim_galore --paired --cores $NUM_THREADS --output $TRIM_GALORE_OUTPUT_FPATH ${FASTQ_INPUT_PATH}/${LIBR_NAME}${READ1_SUFFIX}.fastq.gz ${FASTQ_INPUT_PATH}/${LIBR_NAME}${READ2_SUFFIX}.fastq.gz ) 2> ${TRIM_GALORE_LOG_FPATH}/${LIBR_NAME}_mapping_step.log
-    #echo '"trim_galore --paired --cores $NUM_THREADS --output $TRIM_GALORE_OUTPUT_FPATH ${FASTQ_INPUT_PATH}/${LIBR_NAME}${READ1_SUFFIX}.fastq.gz ${FASTQ_INPUT_PATH}/${LIBR_NAME}${READ2_SUFFIX}.fastq.gz" >> "${TRIM_GALORE_LOG_FPATH}/${LIBR_NAME}_mapping_step.log"'
-    
+    echo '"trim_galore --paired --cores $NUM_THREADS --output $TRIM_GALORE_OUTPUT_FPATH ${FASTQ_INPUT_PATH}/${LIBR_NAME}${READ1_SUFFIX}.fastq.gz ${FASTQ_INPUT_PATH}/${LIBR_NAME}${READ2_SUFFIX}.fastq.gz" >> "${TRIM_GALORE_LOG_FPATH}/${LIBR_NAME}_mapping_step.log"'
     ( trim_galore --paired --cores $NUM_THREADS --output $TRIM_GALORE_OUTPUT_FPATH ${FASTQ_INPUT_PATH}/${LIBR_NAME}${READ1_SUFFIX}.fastq.gz ${FASTQ_INPUT_PATH}/${LIBR_NAME}${READ2_SUFFIX}.fastq.gz ) 2> ${TRIM_GALORE_LOG_FPATH}/${LIBR_NAME}_mapping_step.log
 
     echo `date '+%F %H:%M:%S'` ${LIBR_NAME} Trim-galore completed.
