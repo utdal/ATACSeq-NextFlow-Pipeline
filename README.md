@@ -69,9 +69,17 @@ Below are the required input and configuration files needed to run the tool:
    docker run -it -v C:\Users\NXI220005\Documents\docker_atac_mount_testing:/mnt/Working/ATACSeq-NextFlow-Pipeline/data -w /mnt/Working/ATACSeq-NextFlow-Pipeline unikill066/atac_seq_nextflow_pipeline:latest /bin/bash
    ```
    > After entering the container; follow the following commands:
-   > 1. `conda activate atac_seq`
-   > 2. `nextflow run atac_seq_nextflow_pipeline.nf -c data/pipeline.config`
-   If the pipeline encounters errors, dont worry—fix the issues and resume the process from the last checkpoint with:
-   > 3. `nextflow run atac_seq_nextflow_pipeline.nf -c data/pipeline.config -resume`
+   > 1. Activate the working environment:
+   >    ```
+   >    conda activate atac_seq
+   >    ```
+   > 2. Run the nextflow pipeline:
+   >    ```
+   >    nextflow run atac_seq_nextflow_pipeline.nf -c data/pipeline.config
+   >    ```
+   > 3. If the pipeline encounters errors, dont worry—fix the issues and resume the process from the last checkpoint with:
+   >    ```
+   >    nextflow run atac_seq_nextflow_pipeline.nf -c data/pipeline.config -resume
+   >    ```
    
 4. Once the run is completed, all output files will be copied back to the mounted volume.
