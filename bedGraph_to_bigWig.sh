@@ -3,7 +3,7 @@
 set -e
 
 if [ "$#" -ne 3 ]; then
-    echo "Usage: $0 <BAM_INPUT_PATH> <JOBLIST_FQ_FPATH_FNAME> <OUTPUT_FILE_PATH>"
+    echo "Usage: $0 <FASTQ_INPUT_PATH> <HG38_CHROM_SIZES_PATH> <CONFIG_DIR_FPATH>"
     exit 1
 fi
 
