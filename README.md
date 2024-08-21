@@ -6,13 +6,15 @@ This is an automated workflow pipeline for analyzing and processing ATAC-seq dat
 4. [Completed] Running mark duplicates using picard
 5. [Completed] Running peak calling using MACS2
 6. [In-progress] Calculating TSSe score
-7. [In-progress] Generating bigWig and heatmap using Deeptools
+7. [Completed] Generating bigWig and heatmap using Deeptools
 
 ![ATACSeq NextFlow Pipeline](misc/ATACSeqpipeline.png)
 
 This tool is used to process bulk ATAC-seq data by mapping paired-end reads to a reference genome and identifying areas of open chromatin after peak calling. This tool generates files that can be visualized on a genome browser.
 
 Running the tool is pretty straight forward, however a good understanding of `bash` is recommended. Please familiarize yourself with data types, basic functions, data structures in each language.
+
+There are two ways to run the ATAC-seq pipeline: either by installing the necessary packages manually on your local system, or by using a Docker container, where everything is pre-installed. If you choose to use Docker, skip ahead to the section **Running the Tool in Docker**.
 
 ## Installation/Setup of Visium NextFlow Pipeline:
 You can install Visium NextFlow Pipeline via git:
@@ -46,3 +48,30 @@ Here is an example of how to run the pipeline:
    ```
 
 The results generated are stored in the `params.config_directory = '/path/to/config'` directory, as mentioned in the `pipeline.config` file.
+
+#### Running the Tool in Docker:
+Running ATAC-seq in Docker is straightforward, here is an example of how to run the ATAC-seq pipeline using Docker.
+1. Check if docker is already installed:
+   ```
+   docker --version
+   ```
+Below are the required input and configuration files needed to run the tool:
+2. Place all the necessary files in the `config directory / data`, i.e., `/mnt/Working/ATACSeq-NextFlow-Pipeline/data` using docker volume
+   > Note: The config directory in the docker image would be: `/mnt/Working/ATACSeq-NextFlow-Pipeline` and all the data that would be added via a docker volume mount would be accessible from the `data` directory (`/mnt/Working/ATACSeq-NextFlow-Pipeline/data`). Modify the `pipeline.config` file accordingly.
+   1. Paired-end fastq files in a `fastq_files` directory.
+   2. Bowtie2 genome index files in a directory (e.g., hg38`).
+   3. Reference genome from NCBI in the `refdata-gex-GRCh38-2020-A` directory.
+   4. `atac_seq_samples.txt` containing sample names without paired-end information.
+   5. `pipeline.config` file containing paths to all the necessary files and the genome reference.
+
+3. Run the docker image by setting up a working directory and mounting a volume where the input and configuration files are located.
+   ```
+   docker run -it -v C:\Users\NXI220005\Documents\docker_atac_mount_testing:/mnt/Working/ATACSeq-NextFlow-Pipeline/data -w /mnt/Working/ATACSeq-NextFlow-Pipeline unikill066/atac_seq_nextflow_pipeline:latest /bin/bash
+   ```
+   > After entering the container; follow the following commands:
+   > 1. `conda activate atac_seq`
+   > 2. `nextflow run atac_seq_nextflow_pipeline.nf -c data/pipeline.config`
+   If the pipeline encounters errors, dont worry—fix the issues and resume the process from the last checkpoint with:
+   > 3. `nextflow run atac_seq_nextflow_pipeline.nf -c data/pipeline.config -resume`
+   
+4. Once the run is completed, all output files will be copied back to the mounted volume.
