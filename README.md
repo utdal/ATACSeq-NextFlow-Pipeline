@@ -16,8 +16,8 @@ Running the tool is pretty straight forward, however a good understanding of `ba
 
 There are two ways to run the ATAC-seq pipeline: either by installing the necessary packages manually on your local system, or by using a Docker container, where everything is pre-installed. If you choose to use Docker, skip ahead to the section **Running the Tool in Docker**.
 
-## Installation/Setup of Visium NextFlow Pipeline:
-You can install Visium NextFlow Pipeline via git:
+## Installation/Setup of ATAC-Seq NextFlow Pipeline:
+You can install ATAC-Seq NextFlow Pipeline via git:
 ```
 git clone https://github.com/utdal/ATACSeq-NextFlow-Pipeline
 ```
